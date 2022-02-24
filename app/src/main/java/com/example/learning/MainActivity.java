@@ -1,6 +1,8 @@
 package com.example.learning;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +10,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -31,10 +36,16 @@ public class MainActivity extends AppCompatActivity {
 RecyclerView myRecycle;
     ArrayList<Data> data = new ArrayList<>();
     CustomAdapter adapter;
+    Toolbar myToolBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myToolBar = findViewById(R.id.myToolBar);
+        setSupportActionBar(myToolBar);
+        getSupportActionBar().setTitle("Bisnu Boss");
 
         data.add(new Data("A","017252525"));
         data.add(new Data("B","0172523625"));
@@ -85,6 +96,29 @@ RecyclerView myRecycle;
             }
         });
 
+
+
+
+    }
+// Create new menu option
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        new MenuInflater(getApplicationContext()).inflate(R.menu.main,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+//  Working with menu option button
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.opt_insert:
+                Toast.makeText(getApplicationContext(),"Insert",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.opt_update:
+                Toast.makeText(getApplicationContext(),"Update",Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
